@@ -78,3 +78,8 @@ const PORT = process.env.PORT || 8081;
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+// Error handling for server
+server.on('error', (error) => {
+  logger.error(`Server error: ${error.message}`);
+});
