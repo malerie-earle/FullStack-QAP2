@@ -1,0 +1,4 @@
+{"level":"error","message":"an error","service":"admin-service","timestamp":"2024-02-12 05:35:38.651 PM"}
+{"level":"info","message":"Info message","service":"admin-service","timestamp":"2024-02-12 05:35:38.652 PM"}
+{"level":"error","message":"Error message","service":"admin-service","timestamp":"2024-02-12 05:35:38.653 PM"}
+{"level":"warn","message":"Warning message","service":"admin-service","timestamp":"2024-02-12 05:35:38.653 PM"}
