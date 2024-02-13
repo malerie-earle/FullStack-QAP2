@@ -11,9 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "date-fns": "^3.3.1",
+    "random-cat-img": "^1.1.5",
     "request": "^2.88.2",
     "uuid": "^9.0.1",
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
   }
 }

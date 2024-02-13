@@ -3,6 +3,8 @@ require('winston-daily-rotate-file');
 const fs = require('fs');
 const { combine, timestamp, json, errors } = winston.format;
 const path = require('path');
+const EventEmitter = require('events');
+const myEmitter = new EventEmitter();
 
 // Create a 'logs' directory if it doesn't exist
 const logsDir = './logs';
@@ -31,66 +33,66 @@ const fileRotateTransport = new winston.transports.DailyRotateFile({
   maxFiles: '30d',
 });
 
-// Logging function initiation
 const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || 'info',
-  defaultMeta: {
-    service: 'admin-service',
-  },
-  format: combine(
-    errors({ stack: true }),
-    timestamp({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.errors({ stack: true }),
+    winston.format.timestamp({
       format: 'YYYY-MM-DD hh:mm:ss.SSS A',
     }),
-    json()
+    winston.format.json()
   ),
+  defaultMeta: { service: 'admin-service' },
   transports: [
-    fileRotateTransport,
-    new winston.transports.Console()
+    new winston.transports.Console({
+      handleExceptions: true,
+      handleRejections: true
+    }),
+    new winston.transports.DailyRotateFile({
+      filename: `${logsDir}/%DATE%/combined-%DATE%.log`, // Updated filename pattern
+      datePattern: 'YYYY-MM-DD',
+      maxFiles: '30d',
+      handleExceptions: true,
+      handleRejections: true
+    })
   ],
-  exceptionHandlers: [
-    new winston.transports.File({ filename: './logs/exception.log' }), // Specify the path to the 'logs' directory
-  ],
-  rejectionHandlers: [
-    new winston.transports.File({ filename: './logs/rejections.log' }), // Specify the path to the 'logs' directory
-  ],
+  exitOnError: false
 });
 
-
-// Start a timer
-logger.profile('test');
-
-setTimeout(() => {
-  // End the timer and log the duration
-  logger.profile('test');
-}, 1000);
-
 // Function to check if a file exists
-function checkFileExists(filePath) {
+function checkFileExists(filePath, callback) {
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
       logger.error(`File "${filePath}" does not exist: ${err.message}`);
+      callback(err);
     } else {
       logger.info(`File "${filePath}" exists`);
+      callback(null);
     }
   });
 }
 
 // Function to read a file
-function readFile(filePath) {
+function readFile(filePath, callback) {
   fs.readFile(filePath, (err, data) => {
     if (err) {
       logger.error(`Failed to read file "${filePath}": ${err.message}`);
+      callback(err);
     } else {
       logger.info(`Successfully read file "${filePath}`);
+      callback(null, data);
     }
   });
 }
-
 // Fired when a log file is created
-fileRotateTransport.on('new', (filename) => {});
+fileRotateTransport.on('new', (filename) => {
+  logger.info(`A new log file was created: ${filename}`);
+});
+
 // Fired when a log file is rotated
-fileRotateTransport.on('rotate', (oldFilename, newFilename) => {});
+fileRotateTransport.on('rotate', (oldFilename, newFilename) => {
+  logger.info(`A log file was rotated. Old filename: ${oldFilename}. New filename: ${newFilename}`);
+});
 
 // Fired when a log file is archived
 fileRotateTransport.on('archive', (zipFilename) => {
@@ -100,6 +102,7 @@ fileRotateTransport.on('archive', (zipFilename) => {
   const newPath = path.join(dirname, getCurrentDate());
   // Replace the logsDir with the new path
   const newFilename = zipFilename.replace(logsDir, newPath);
+  logger.info(`A log file was archived: ${newFilename}`);
 });
 
 // Fired when a log file is deleted
@@ -110,6 +113,7 @@ fileRotateTransport.on('logRemoved', (removedFilename) => {
   const newPath = path.join(dirname, getCurrentDate());
   // Replace the logsDir with the new path
   const newFilename = removedFilename.replace(logsDir, newPath);
+  logger.info(`A log file was removed: ${newFilename}`);
 });
 
 logger.exitOnError = false;
@@ -118,5 +122,6 @@ logger.exitOnError = false;
 module.exports = {
   logger,
   checkFileExists,
-  readFile
+  readFile,
+  myEmitter
 };
