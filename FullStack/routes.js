@@ -1,6 +1,6 @@
 const fs = require('fs');
 const request = require('request'); // Include request module for API request
-const { myEmitter, logger } = require('./logEvents2.js');
+const { myEmitter, logger } = require('./logEvents.js');
 
 
 function indexPage(path, response) {

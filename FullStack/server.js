@@ -1,6 +1,6 @@
 const http = require('http');
 const route = require('./routes.js');
-const { logger } = require('./logEvents2.js');
+const { logger } = require('./logEvents.js');
 
 // debug on/off toggle
 global.DEBUG = false;
