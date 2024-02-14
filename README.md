@@ -1,6 +1,6 @@
 # FullStack-QAP2
 <h3>Semester 3: QAP 2 – Full Stack JavaScript (Full Document Available)</h3>
-<p>I was able to branch and merge once, otherwise I just committed directly to the main project. Did it in 2 big pieces (Server/Routes and Logging) and the rest was mostly small updates not features. (Didnt see the branch each feature part until it was too late)
+<p>I was able to branch and merge once on this repo, otherwise I just committed directly to the main project. Did it in 2 big pieces (Server/Routes and Logging) and the rest was mostly small updates not features. Made new github repo to demonstrate branching, merging, pull requests, and issues.
 Questions:
 1. How many hours did it take you to complete this assessment? (Please keep try to keep track of how many hours you have spent working on each individual part of this assessment as best you can - an estimation is fine; we just want a rough idea.)
 - All the questions kind of mixed together, about 5 hours spent on entire project.
