@@ -1,6 +1,6 @@
 # FullStack-QAP2
-Semester 3: QAP 2 – Full Stack JavaScript
-I was able to branch and merge once, otherwise I just committed directly to the main project. Did it in 2 big pieces (Server/Routes and Logging) and the rest was mostly small updates not features. (Didnt see the branch each feature part until it was too late)
+<h3>Semester 3: QAP 2 – Full Stack JavaScript</h3>
+<p>I was able to branch and merge once, otherwise I just committed directly to the main project. Did it in 2 big pieces (Server/Routes and Logging) and the rest was mostly small updates not features. (Didnt see the branch each feature part until it was too late)
 Questions:
 1. How many hours did it take you to complete this assessment? (Please keep try to keep track of how many hours you have spent working on each individual part of this assessment as best you can - an estimation is fine; we just want a rough idea.)
 - All the questions kind of mixed together, about 5 hours spent on entire project.
@@ -18,7 +18,7 @@ Questions:
 4. Did you need to ask questions to any of your instructors? If so, how many questions did you ask (or how many help sessions did you require)?
 - No
 5. Rate (subjectively) the difficulty of each question from your own perspective, and whether you feel confident that you can solve a similar but different problem requiring some of the same techniques in the future now that you’ve completed this one.
-- Medium difficulty
+- Medium difficulty</p>
 <br />
 <h1>Task 3 - Step 2: </h1>
 <p>I am using the NPM module Winston to implement logging for various event scenarios. I am logging several events on my http server, including the following:
