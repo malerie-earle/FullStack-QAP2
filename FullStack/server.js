@@ -13,56 +13,66 @@ const server = http.createServer((req, res) => {
   
   // Log incoming request
   logger.info(`Server Started: ${req.method} ${req.url}`);
+  
   // Route handling
   let path = './views/';
   switch(req.url) {
+    // Home page / root
     case '/':
       path += 'index.html';
       route.indexPage(path, res);
       break;
 
+    // Redirect from '/old-path' to '/new-path'
     case '/old-path':
-      // Redirect from '/old-path' to '/new-path'
       res.writeHead(302, { 'Location': '/new-path' });
       res.end();
       break;
 
+    // About page
     case '/about':
       path += 'about.html';
       route.aboutPage(path, res);
       break;
 
+    // Contact page
     case '/contact':
       path += 'contact.html';
       route.contactPage(path, res);
       break;
 
+    // Products page
     case '/products':
       path += 'products.html';
       route.productsPage(path, res);
       break;
 
+    // Subscribe page
     case '/subscribe':
       path += 'subscribe.html';
       route.subscribePage(path, res);
       break;
 
+    // Event route
     case '/event':
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(`A route ${req.url} was requested`);
       break;
     
+    // Folder creation route
     case '/folder':
       route.createFolder(req, res);
       res.writeHead(201, { 'Content-Type': 'text/plain' });
       res.end('Folder created');
       break;
 
+    // Teapot route - The HTTP 418 I'm a teapot client error response code indicates that the server refuses to brew coffee because it is, permanently, a teapot. A combined coffee/tea pot that is temporarily out of coffee should instead return 503. This error is a reference to Hyper Text Coffee Pot Control Protocol defined in April Fools' jokes in 1998 and 2014.
     case '/teapot':
       res.writeHead(418, { 'Content-Type': 'text/plain' });
       res.end("I'm a teapot");
       break;
 
+    // default route or 404 Not Found
     default:
       logger.warn(`404 Not Found: ${req.url}`);
       res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -85,7 +95,7 @@ const server = http.createServer((req, res) => {
         logger.warn(`HTTP ${statusCode}: ${res.statusMessage} - ${req.method} ${req.url}`);
       } else {
       
-      // Log all messages to log document
+      // Log all messages
       logger.info(`HTTP ${statusCode}: ${res.statusMessage} - ${req.method} ${req.url}`);
     }
   });

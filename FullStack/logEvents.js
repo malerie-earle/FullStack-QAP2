@@ -1,3 +1,4 @@
+// Imports
 const winston = require('winston');
 require('winston-daily-rotate-file');
 const fs = require('fs');
@@ -28,7 +29,7 @@ function getCurrentDate() {
 
 // Initiate daily log files inside the 'logs' directory
 const fileRotateTransport = new winston.transports.DailyRotateFile({
-  filename: `${logsDir}/%DATE%/combined-%DATE%.log`, // Updated filename pattern
+  filename: `${logsDir}/%DATE%/combined-%DATE%.log`,
   datePattern: 'YYYY-MM-DD',
   maxFiles: '30d',
 });
@@ -49,7 +50,7 @@ const logger = winston.createLogger({
       handleRejections: true
     }),
     new winston.transports.DailyRotateFile({
-      filename: `${logsDir}/%DATE%/combined-%DATE%.log`, // Updated filename pattern
+      filename: `${logsDir}/%DATE%/combined-%DATE%.log`, 
       datePattern: 'YYYY-MM-DD',
       maxFiles: '30d',
       handleExceptions: true,
